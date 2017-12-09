@@ -1,8 +1,8 @@
 version: "3.3"
 services:
   hadoop_master:
-    build: ./Dockerfile
-    image: hadoop
+    build: .
+    image: hadoop_master
     networks:
       hadoop:
     ports:
@@ -11,7 +11,8 @@ services:
   hadoop_slave:
     build:
       context: .
-      dockerfile: ./Dockerfile_slave
+      args:
+        NODE_TYPE: slave
     image: hadoop_slave
     networks:
       hadoop:
