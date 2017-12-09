@@ -1,0 +1,17 @@
+#!/bin/sh
+exec 2>&1
+
+
+service ssh stop
+$HADOOP_HOME/sbin/stop-dfs.sh
+$HADOOP_HOME/sbin/stop-yarn.sh
+
+LAST=0
+test -x /run/runit.reboot && LAST=6
+
+echo 'Waiting for services to stop...'
+sv -w196 force-stop /service/*
+sv exit /service/*
+
+echo 'Shutdown...'
+/etc/init.d/rc $LAST

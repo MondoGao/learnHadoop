@@ -22,7 +22,7 @@ RUN mkdir -p /data/hdfs/namenode && mkdir -p /data/hdfs/datanode && \
 
 # Runit Config
 COPY ./other_config/runit_service/ /etc/service/
-COPY ./other_config/runit/ /etc/runit/
+COPY ./other_config/runit_slave/ /etc/runit/
 
 # SSH Config
 RUN mkdir ~/.ssh

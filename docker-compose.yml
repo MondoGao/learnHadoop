@@ -1,27 +1,18 @@
-version: "3"
+version: "3.3"
 services:
   hadoop_master:
     build: ./Dockerfile
     image: hadoop
-    entrypoint:
-      - sh
-      - -c
-      - runit
-      # - service ssh start;start-dfs.sh;start-yarn.sh;ping hadoop_master
-    depends_on:
-      - hadoop_slave
     networks:
       hadoop:
     ports:
       - "8088:8088"
       - "50070:50070"
   hadoop_slave:
-    build: ./Dockerfile
-    image: hadoop
-    entrypoint:
-      - sh
-      - -c
-      - service ssh start
+    build:
+      context: .
+      dockerfile: ./Dockerfile_slave
+    image: hadoop_slave
     networks:
       hadoop:
 networks:

@@ -1,0 +1,14 @@
+#!/bin/sh
+# system one time tasks
+
+# /etc/init.d/rcS
+# /etc/init.d/rmnologin
+
+touch /run/runit.stopit
+chmod 0 /run/runit.stopit
+
+[ -e /etc/runit/no-emulate-sysv ] || /etc/init.d/rc 5
+
+service ssh start
+$HADOOP_HOME/sbin/start-dfs.sh
+$HADOOP_HOME/sbin/start-yarn.sh
